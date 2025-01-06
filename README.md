@@ -147,7 +147,7 @@ Memastikan bahwa kode hanya dieksekusi jika file ini dijalankan secara langsung,
 
 ---
 
-### **Keuntungan Modularitas dalam Codingan**
+### **mfungsi dari modular pada program ini**
 1. **Keterpisahan Tanggung Jawab**: 
    - Kode dibagi berdasarkan fungsinya (model, view, dan process).
    - Perubahan pada satu bagian (misalnya, tampilan data) tidak memengaruhi bagian lain (misalnya, logika input).
