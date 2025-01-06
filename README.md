@@ -101,3 +101,63 @@ Program utama (`main`) adalah pusat kontrol program, memberikan antarmuka menu k
 
 ### **5. Blok Eksekusi (`if __name__ == "__main__"`)**
 Blok ini memastikan bahwa program hanya dijalankan jika file ini dieksekusi langsung, bukan diimpor sebagai modul ke program lain. Ketika file ini dijalankan, fungsi `main` akan dipanggil, memulai program dan menampilkan menu utama. Pendekatan ini menjaga modularitas program, memungkinkan kode digunakan ulang atau diuji dalam konteks lain tanpa memicu eksekusi langsung.
+
+**Konsep modular** Dalam program yang saya buat, diterapkan dengan membagi program ke dalam beberapa **kelas** dan **metode**, masing-masing memiliki tanggung jawab spesifik.
+
+### **1. Pemisahan Tanggung Jawab dengan Kelas**
+Program dibagi menjadi tiga kelas utama:
+1. **`StudentData`**: Bertanggung jawab untuk merepresentasikan data mahasiswa (sebagai model). Kelas ini hanya berisi atribut dan menyimpan informasi mahasiswa seperti nama, NIM, program studi, kelas, nilai tugas, dan nilai UTS.
+   - Contoh modularitas: Semua data terkait mahasiswa dikelola di kelas ini, membuat data lebih terstruktur.
+
+2. **`StudentView`**: Bertugas menampilkan data mahasiswa dalam bentuk tabel. Kelas ini hanya berfokus pada logika tampilan tanpa mencampuri cara data dikumpulkan atau diolah.
+   - Contoh modularitas: Jika format tampilan data ingin diubah (misalnya menjadi file JSON atau CSV), Anda cukup memodifikasi kelas ini tanpa memengaruhi logika input atau pengolahan data.
+
+3. **`StudentProcess`**: Menangani proses input data mahasiswa dari pengguna, validasi, dan penyimpanan ke dalam list. Modul ini bertindak sebagai "pengelola data" dan memastikan data yang dimasukkan valid sebelum ditambahkan ke sistem.
+   - Contoh modularitas: Proses validasi atau manipulasi data mahasiswa sepenuhnya dilakukan di kelas ini, tanpa memengaruhi cara data ditampilkan atau disimpan.
+
+---
+
+### **2. Penggunaan Metode dengan Tanggung Jawab Tunggal**
+Setiap metode memiliki tanggung jawab spesifik:
+- **`add_student` (di `StudentProcess`)**:
+  - Meminta input data mahasiswa dari pengguna, memvalidasinya, dan menyimpannya dalam list.
+  - Modularitas: Semua logika terkait input dan validasi ditempatkan di satu metode, sehingga mudah dipahami dan dirawat.
+  
+- **`display_students` (di `StudentView`)**:
+  - Menampilkan data mahasiswa yang tersimpan dalam list dengan format tabel.
+  - Modularitas: Logika tampilan tidak bercampur dengan logika validasi atau penyimpanan data.
+
+---
+
+### **3. Pemisahan Logika dalam Program Utama**
+Program utama (`main`) bertindak sebagai pengontrol, yang hanya mengarahkan logika berdasarkan pilihan pengguna:
+- Menggunakan objek dari kelas `StudentProcess` untuk menambahkan data mahasiswa.
+- Menggunakan objek dari kelas `StudentView` untuk menampilkan data.
+- Modularitas: Program utama tidak mengandung detail implementasi seperti cara data disimpan, divalidasi, atau ditampilkan. Tugas-tugas tersebut didelegasikan ke modul masing-masing.
+
+---
+
+### **4. Modularitas dengan Blok Eksekusi**
+Blok eksekusi:
+```python
+if __name__ == "__main__":
+    main()
+```
+Memastikan bahwa kode hanya dieksekusi jika file ini dijalankan secara langsung, bukan diimpor sebagai modul oleh program lain. Modularitas di sini memungkinkan kode (terutama kelas `StudentData`, `StudentView`, dan `StudentProcess`) digunakan kembali di proyek lain tanpa menjalankan program utama.
+
+---
+
+### **Keuntungan Modularitas dalam Codingan**
+1. **Keterpisahan Tanggung Jawab**: 
+   - Kode dibagi berdasarkan fungsinya (model, view, dan process).
+   - Perubahan pada satu bagian (misalnya, tampilan data) tidak memengaruhi bagian lain (misalnya, logika input).
+
+2. **Reusabilitas**:
+   - Kelas dan metode dapat digunakan kembali di program lain tanpa modifikasi besar.
+
+3. **Fleksibilitas dan Skalabilitas**:
+   - Jika ingin menambahkan fitur baru, seperti menghitung nilai rata-rata atau menyimpan data ke file, Anda bisa melakukannya dengan menambahkan modul baru tanpa merombak struktur yang ada.
+
+4. **Kemudahan Pemeliharaan**:
+   - Karena setiap modul independen, debugging dan pengembangan program menjadi lebih mudah.
+Konsep modular dalam codingan ini diterapkan dengan baik melalui pemisahan program menjadi tiga kelas (`StudentData`, `StudentView`, dan `StudentProcess`), penggunaan metode dengan tanggung jawab tunggal, serta struktur program utama yang hanya bertugas mengatur alur logika. Modularitas ini membuat program lebih bersih, terorganisir, dan mudah dikembangkan.
